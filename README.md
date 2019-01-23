@@ -18,44 +18,98 @@ This library has the goal to simplify the process of consuming  a REST-API based
 
 ## Usage Examples 
 
+## RESTObject
+
+
+
 ## Data class
 
-`
-// Insert Code here
-`
+The following class represents a simple data entity, which should showcase the usage of the library.
+```java
+public class User{
+
+private String firstname;
+private String lastname;
+
+public User(){}
+
+ // GETTER und SETTER einfügen
+
+}
+```
 
 
 ### GET-Request
 
-`
-// Insert Code here
-`
+The following examples showcasing a simple GET-Request on a single object REST-ressource and on a listressource.
 
 #### Object
 
-`
-// Insert Code here
-`
- 
+```java
+RESTRequester<User> restRequester = new RESTRequester<>(context);
+restRequester.getObject("http://url/restressource/:id", null, new RESTRequestHandler<User>(){
+    public void onResponse(User responseObject){
+     
+    }
+     
+    public void onError(VolleyError error){
+    
+    }
+}, User.class);
+
+```
 
 #### Array
 
-`
-// Insert Code here
-`
+```java
+RESTRequester<User> restRequester = new RESTRequester<>(context);
+restRequester.getArray("http://url/restressource", null, new RESTRequestHandler<User>(){
+    public void onResponse(User responseObject){
+     
+    }
+     
+    public void onError(VolleyError error){
+    
+    }
+}, User.class);
+
+```
+
 
 
 ### PUT-Request
 
-`
-// Insert Code here
-`
+
+```java
+RESTRequester<User> restRequester = new RESTRequester<>(context);
+restRequester.getArray("http://url/restressource/:id", new User("John", "Doe"), new RESTRequestHandler<User>(){
+    public void onResponse(User responseObject){
+     
+    }
+     
+    public void onError(VolleyError error){
+    
+    }
+}, User.class);
+
+```
 
 ### POST-Request
 
-`
-// Insert Code here
-`
+
+```java
+RESTRequester<User> restRequester = new RESTRequester<>(context);
+restRequester.postObject("http://url/restressource", new User("John", "Doe"), new RESTRequestHandler<User>(){
+    public void onResponse(User responseObject){
+     
+    }
+     
+    public void onError(VolleyError error){
+    
+    }
+}, User.class);
+
+```
 
 ### DELETE-Request
 
@@ -65,4 +119,12 @@ This library has the goal to simplify the process of consuming  a REST-API based
 
 ## Notes
 
-If you have any kind of question, bug, problem or a feature-request, feel free to contact me or creating an issue. 
+If you have any kind of question, tip, bug, problem or a feature-request, feel free to contact me or creating an issue. 
+
+
+
+# License
+
+// Insert License snippet here
+ 
+
