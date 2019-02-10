@@ -30,7 +30,7 @@ This library has the goal to simplify the process of consuming  a REST-API based
    }
    
    dependencies {
-        implementation 'com.github.MSauerM:AndroidRESTRequester:0.1'
+        implementation 'com.github.MSauerM:AndroidRESTRequester:v0.3'
    }
 ```
 
