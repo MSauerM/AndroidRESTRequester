@@ -1,7 +1,7 @@
 # AndroidRESTRequester
 
 [![Release](https://jitpack.io/v/User/Repo.svg)]
-(https://jitpack.io/MSauerM/AndroidRESTRequester)
+(https://jitpack.io/#MSauerM/AndroidRESTRequester)
 
 Android-Library, which combines [Volley](https://github.com/google/volley) and [Gson](https://github.com/google/gson) for making simple JSON-Requests consuming REST-APIs and making a simple alternative to GsonRequest available.
 
@@ -148,7 +148,6 @@ If you have any kind of question, tip, bug, problem or a feature-request, feel f
 
 # License
 
-// Insert License snippet here
 ```
 Copyright 2019 Matthias Sauer
 Copyright (C) 2011 The Android Open Source Project
