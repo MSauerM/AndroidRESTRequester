@@ -1,6 +1,6 @@
 # AndroidRESTRequester
 
-(Under Construction)
+
 
 [![Stable](https://jitpack.io/v/MSauerM/AndroidRESTRequester.svg)](https://jitpack.io/#MSauerM/AndroidRESTRequester)
 
