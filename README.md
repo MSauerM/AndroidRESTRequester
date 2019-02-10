@@ -2,8 +2,7 @@
 
 (Under Construction)
 
-[![Release](https://jitpack.io/v/User/Repo.svg)]
-(https://jitpack.io/#MSauerM/AndroidRESTRequester)
+[![Stable](https://jitpack.io/v/MSauerM/AndroidRESTRequester.svg)](https://jitpack.io/#MSauerM/AndroidRESTRequester)
 
 Android-Library, which combines [Volley](https://github.com/google/volley) and [Gson](https://github.com/google/gson) for making simple JSON-Requests consuming REST-APIs and making a simple alternative to GsonRequest available.
 
@@ -21,6 +20,19 @@ This library has the goal to simplify the process of consuming  a REST-API based
 - Extending the supported range of HTTP-Verbs(PATCH, HEAD etc.)
 - Adding headers to a request
 - Appropriate Error Handling (Error Messages, Exceptions etc.)
+
+## How to Implement
+
+```
+ repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+   }
+   
+   dependencies {
+        implementation 'com.github.MSauerM:AndroidRESTRequester:0.1'
+   }
+```
 
 ## Usage Examples 
 
