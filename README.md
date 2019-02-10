@@ -97,7 +97,7 @@ restRequester.getArray("http://url/restressource", null, new RESTRequestHandler<
 
 ```java
 RESTRequester<User> restRequester = new RESTRequester<>(context);
-restRequester.getArray("http://url/restressource/:id", new User("John", "Doe"), new RESTRequestHandler<User>(){
+restRequester.putObject("http://url/restressource/:id", new User("John", "Doe"), new RESTRequestHandler<User>(){
     public void onResponse(User responseObject){
        // handle Response
     }
