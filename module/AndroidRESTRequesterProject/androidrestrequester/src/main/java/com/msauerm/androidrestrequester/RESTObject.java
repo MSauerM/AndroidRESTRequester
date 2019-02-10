@@ -1,8 +1,8 @@
 package com.msauerm.androidrestrequester;
 
-/*Container-Object für die mittels REST-Schnittstelle verfügbaren Klassen.
-* Struktur wurde für das leichtere verarbeiten, von entsprechenden Instanzen in inneren Klassen erstellt,
-* da diese 'final' sein müssen,*/
+/*Container-Object for the instances, which are consumed of the REST-API.
+* Parameterization makes it possible to handle custom classes as well.
+* */
 public class RESTObject<T> {
 
     private T object;

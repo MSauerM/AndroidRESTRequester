@@ -14,38 +14,38 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/*Requester-Klasse, welche die Volley-Request mit der Gson-Serialisierung verbindet, wodurch
-* vom Server erhaltene JSON-Instanzen direkt als Java-Instanzen genutzt werden können
+/*requester, which combines the volley-requests with the serialization of gson to get usable java-instances made of the received server responses
+* and their body content (in this case specifically JSON)
 * */
 public class RESTRequester<T> {
 
-    private static RESTConfig config;
+    private static RESTConfig config;       // Static Singleton instance to handle all settings with this object
 
-    // Konstruktor für die Erstellung einer Singleton-Instanz der REST-Config-Klasse
+    //
     public RESTRequester(Context context){
         if(config == null){
             config = new RESTConfig(context);
         }
     }
 
-    /**GET-Request auf die angegebene URL mit zugehörigem Parsing der Klasseninstanz
+    /**GET-Request for consuming data of a REST-API
     *
-     * @param url Ziel-URL der HTTP-Request
-    * @param body Bei der GET-Request = null
-     * @param handler Implementation des Verhaltens nach erfolgreicher/fehlgeschlagener Request
-    * @param parameterizedClass Klasse der zu deserialisierenden JSON-Antwort
+     * @param url target url of the request
+    * @param body null if its a GET-Request
+     * @param handler implement the behavior of handling the response
+    * @param parameterizedClass class of the instance, which has to be deserialized
      *
      * */
     public RESTObject<T> getObject(String url, T body, final RESTRequestHandler<T> handler, final Class<T> parameterizedClass){
 
-        final RESTObject<T> responseObject= new RESTObject<T>();                    // Erstellung eines RESTObjects<>
+        final RESTObject<T> responseObject= new RESTObject<T>();
         JsonObjectRequest getRequest =
                 new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {       // Zusammenfügen des Volley-JsonObjectRequest
-                        T object = config.gson.fromJson(String.valueOf(response), parameterizedClass); // Deserialisieren der Json-Response
+                    public void onResponse(JSONObject response) {
+                        T object = config.gson.fromJson(String.valueOf(response), parameterizedClass);
                         responseObject.setObject(object);
-                        handler.onResponse(object);                                                     // Übergabe der deserialisierten Instanz an das Handlerobject
+                        handler.onResponse(object);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -53,15 +53,15 @@ public class RESTRequester<T> {
                         handler.onError(error);
                     }
                 });
-        config.queue.add(getRequest);                                                                   // Volley: notwendiges Hinzufügen zu der in der RESTConfig erstellten Requestqueue
+        config.queue.add(getRequest);
         return responseObject;
     }
 
-    /**PUT-Request auf angegebene URL mit der entsprechenden Aktualisierung der Instanz
-     * @param url Ziel-URL der HTTP-Request
-     * @param body Die zu serialisierende Klasseninstanz
-     * @param handler Implementation des Verhaltens nach erfolgreicher/fehlgeschlagener Request
-     * @param parameterizedClass Klasse der zu deserialisierenden JSON-Antwort
+    /**PUT-Request for updating the specified instance of the Rest service
+     * @param url target url of the request
+     * @param body instance, which have to be serialized
+     * @param handler implement the behavior of handling the response
+     * @param parameterizedClass class of the instance, which has to be deserialized
      * */
     public RESTObject<T> putObject(String url, T body, final RESTRequestHandler<T> handler, final Class<T> parameterizedClass){
 
@@ -77,10 +77,8 @@ public class RESTRequester<T> {
                 new JsonObjectRequest(Request.Method.PUT, url, jsonBody, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                       // TypeToken<T> responseType= new TypeToken<T>(){};
                         T object = config.gson.fromJson(String.valueOf(response), parameterizedClass);
                         responseObject.setObject(object);
-                  //      responseObject.onSuccessfulRequest();
                         handler.onResponse(object);
                     }
                 }, new Response.ErrorListener() {
@@ -93,11 +91,11 @@ public class RESTRequester<T> {
         return responseObject;
     }
 
-    /**POST-Request auf die angegebenen URL mit dem zu serialisierenden Objekt der entsprechenden Klasse
-     * @param url Ziel-URL der HTTP-Request
-     * @param body Die zu serialisierende Klasseninstanz
-     * @param handler Implementation des Verhaltens nach erfolgreicher/fehlgeschlagener Request
-     * @param parameterizedClass Klasse der zu deserialisierenden JSON-Antwort
+    /**POST-Request for creating a new instance in the REST-API
+     * @param url target url of the request
+     * @param body instance, which have to be serialized
+     * @param handler implement the behavior of handling the response
+     * @param parameterizedClass class of the instance, which has to be deserialized
      * */
     public RESTObject<T> postObject(String url, T body, final RESTRequestHandler<T> handler, final Class<T> parameterizedClass){
 
@@ -113,7 +111,6 @@ public class RESTRequester<T> {
                 new JsonObjectRequest(Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //TypeToken<T> responseType= new TypeToken<T>(){};
                         T object = config.gson.fromJson(String.valueOf(response), parameterizedClass);
                         responseObject.setObject(object);
                         handler.onResponse(object);
@@ -128,11 +125,11 @@ public class RESTRequester<T> {
         return responseObject;
     }
 
-    /**DELETE-Request auf die angegebene URL
-    * @param url Ziel-URL der HTTP-Request
-     * @param body Bei DELETE-Request: null
-     * @param handler Implementation des Verhaltens nach erfolgreicher/fehlgeschlagener Request
-     * @param parameterizedClass Bei DELETE-REQUEST: null
+    /**DELETE-Request for deleting the specified instance/instances of the REST-API
+    * @param url target url of the request
+     * @param body null, because its a DELETE-Request
+     * @param handler implement the behavior of handling the response
+     * @param parameterizedClass null, because it is a DELETE-Request
     * */
     public void deleteObject(String url, T body, RESTRequestHandler<T> handler, final Class<T> parameterizedClass){
         JsonObjectRequest deleteRequest =
@@ -150,11 +147,11 @@ public class RESTRequester<T> {
         config.queue.add(deleteRequest);
     }
 
-    /** GET-Request auf die angegebene URL einer Listenressource
-     * @param url Ziel-URL der HTTP-Request
-     * @param body Bei GET-Request: null
-     * @param handler Implementation des Verhaltens nach erfolgreicher/fehlgeschlagener Request
-     * @param parameterizedClass Klasse der zu deserialisierenden JSON-Antwort
+    /** GET-Request for retrieving an array
+     * @param url target url of the request
+     * @param body null, if its a GET-Request
+     * @param handler implement the behavior of handling the response
+     * @param parameterizedClass class of the instance, which has to be deserialized
      * */
     public RESTObject<ArrayList<T>> getArray(String url, T body, final RESTRequestHandler<ArrayList<T>> handler, final Class<T> parameterizedClass){
 
@@ -165,7 +162,7 @@ public class RESTRequester<T> {
                 new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        for(int i = 0; i<response.length(); i++){
+                        for(int i = 0; i < response.length(); i++){
                             try {
                                 T object = config.gson.fromJson(String.valueOf(response.getJSONObject(i)), parameterizedClass);
                                 responseObjectArray.getObject().add(object);

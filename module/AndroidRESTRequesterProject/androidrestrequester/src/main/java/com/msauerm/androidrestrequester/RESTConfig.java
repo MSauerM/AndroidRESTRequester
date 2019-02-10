@@ -6,13 +6,18 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
-/*Konfiguration der für Gson und Volley benötigten Strukturen*/
+/**Configuration-Class*/
 public class RESTConfig {
 
-    public Gson gson;                   // GSON-Instanz
-    public RequestQueue queue;          // zentrale Requestqueue
+    public Gson gson;                   // instance of Gson
+    public RequestQueue queue;          // Volley-RequestQueue
 
-    public RESTConfig(Context context){                 // Erzeugung von Gson und der Requestqueue mittels statischer Factory-Method
+    /**
+     * Constructor
+     *
+     * @param context Required for the instantiation of the volley requestqueue
+     * */
+    public RESTConfig(Context context){
         gson = new Gson();
         queue = Volley.newRequestQueue(context);
     }
