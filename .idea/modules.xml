@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidRESTRequester.iml" filepath="$PROJECT_DIR$/AndroidRESTRequester.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidrestrequester/androidrestrequester.iml" filepath="$PROJECT_DIR$/androidrestrequester/androidrestrequester.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
